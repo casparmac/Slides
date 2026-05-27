@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitastad - KI for deg</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&family=Epilogue:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #ffffff;
+  --ink: #111111;
+  --mid: #444444;
+  --sub: #888888;
+  --rule: #e0e0e0;
+  --rule-light: #f0f0f0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Epilogue', sans-serif;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  padding: 11px 52px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: 'DM Mono', monospace;
+}
+.topbar strong { color: rgba(255,255,255,0.75); }
+.topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.15); flex-shrink:0; }
+
+.hero {
+  padding: 72px 52px 60px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--sub);
+  margin-bottom: 20px;
+  font-family: 'DM Mono', monospace;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.0;
+  color: var(--ink);
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+.hero h1 em { font-style: italic; font-weight: 400; }
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--sub);
+  font-weight: 300;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+.hero-stat-block { text-align: right; }
+
+.hero-stat {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--rule);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.hero-stat-label {
+  font-size: 11px;
+  color: var(--sub);
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace;
+}
+
+.persona-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--rule);
+}
+
+.persona-tab {
+  padding: 32px 36px 28px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+.persona-tab:last-child { border-right: none; }
+
+.persona-tab-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--ink);
+}
+
+.persona-tab-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--sub);
+  margin-bottom: 10px;
+}
+
+.persona-tab-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.persona-tab-desc {
+  font-size: 14px;
+  color: var(--sub);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.persona-tab-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  margin-top: 14px;
+  color: var(--sub);
+  display: block;
+}
+
+.persona-section {
+  padding: 60px 52px 72px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-intro {
+  margin-bottom: 44px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.section-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--sub);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--sub);
+  font-weight: 300;
+  max-width: 620px;
+  line-height: 1.65;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.story {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.15s;
+}
+.story:hover { background: #fafafa; }
+
+.story-top {
+  padding: 22px 22px 16px;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.story-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--sub);
+  margin-bottom: 10px;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.story-from-to {
+  font-size: 13px;
+  color: var(--sub);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.story-trigger {
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--rule-light);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.trigger-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sub);
+  border: 1px solid var(--rule);
+  padding: 3px 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.trigger-text {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+.story-flow {
+  padding: 14px 22px;
+  flex: 1;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.flow-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sub);
+  margin-bottom: 10px;
+}
+
+.flow-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-list li {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+  padding: 6px 0 6px 22px;
+  position: relative;
+  border-left: 1px solid var(--rule);
+  margin-left: 8px;
+}
+
+.flow-list li::before {
+  content: attr(data-n);
+  position: absolute;
+  left: -9px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 1px solid var(--rule);
+  font-size: 8px;
+  font-family: 'DM Mono', monospace;
+  color: var(--sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 16px;
+}
+
+.flow-list li strong { color: var(--ink); font-weight: 600; }
+
+.story-value {
+  padding: 12px 22px 18px;
+  background: #fafafa;
+}
+
+.value-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sub);
+  margin-bottom: 8px;
+}
+
+.value-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vtag {
+  font-size: 12px;
+  padding: 3px 10px;
+  border: 1px solid var(--rule);
+  color: var(--mid);
+  font-weight: 400;
+  line-height: 1.4;
+  background: white;
+}
+
+.day-strip {
+  background: var(--ink);
+  padding: 48px 52px 56px;
+}
+
+.day-strip-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+.day-strip h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.5px;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.day-col-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.day-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  align-items: flex-start;
+}
+
+.day-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.22);
+  flex-shrink: 0;
+  padding-top: 2px;
+  width: 38px;
+}
+
+.day-event {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.45);
+}
+
+.day-event strong {
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.day-event .ki-tag {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.25);
+  font-family: 'DM Mono', monospace;
+  margin-top: 3px;
+}
+
+@keyframes rise {
+  from { opacity:0; transform: translateY(8px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.story { animation: rise 0.3s ease both; }
+.story:nth-child(1){ animation-delay:.04s }
+.story:nth-child(2){ animation-delay:.08s }
+.story:nth-child(3){ animation-delay:.12s }
+.story:nth-child(4){ animation-delay:.16s }
+.story:nth-child(5){ animation-delay:.20s }
+.story:nth-child(6){ animation-delay:.24s }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <strong>Bitastad - KI-strategi</strong>
+  <div class="topbar-dot"></div>
+  <span>Persona-perspektiv: Leder - HQ-ansatt - Restaurantansatt</span>
+  <div class="topbar-dot"></div>
+  <span>Supplement til flaskehals-analyse</span>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">KI i hverdagen</div>
+    <h1>Hva gjor KI<br>for <em>deg?</em></h1>
+    <p class="hero-desc">Tre perspektiver pa samme teknologi: hva KI faktisk betyr i arbeidsdagen til lederen som skal skalere et konsern, HR-radgiveren som rekrutterer til 300 lokasjoner, og kokken som apner kjokkenert klokken seks.</p>
+  </div>
+  <div class="hero-stat-block">
+    <div class="hero-stat">3</div>
+    <div class="hero-stat-label">Personas - 18 stories</div>
+  </div>
+</div>
+
+<div class="persona-nav">
+  <div class="persona-tab">
+    <div class="persona-tab-accent"></div>
+    <div class="persona-tab-role">Persona 01</div>
+    <div class="persona-tab-title">Leder</div>
+    <div class="persona-tab-desc">Konsernledelse og mellomledere pa HQ. Strategisk perspektiv, portef&#248;ljeoversikt, M&A og styringsinformasjon.</div>
+    <span class="persona-tab-count">6 stories</span>
+  </div>
+  <div class="persona-tab">
+    <div class="persona-tab-accent"></div>
+    <div class="persona-tab-role">Persona 02</div>
+    <div class="persona-tab-title">Ansatt HQ / Stab</div>
+    <div class="persona-tab-desc">Markedsf&#248;ring, HR, &#248;konomi, IT, innkj&#248;p. 90 medarbeidere som bygger systemene som skalerer Bitastad.</div>
+    <span class="persona-tab-count">6 stories</span>
+  </div>
+  <div class="persona-tab">
+    <div class="persona-tab-accent"></div>
+    <div class="persona-tab-role">Persona 03</div>
+    <div class="persona-tab-title">Ansatt i restaurant</div>
+    <div class="persona-tab-desc">Daglig leder, kokk, servit&#248;r, kassepersonell. KI som usynlig kollega &#8212; der det virkelig skjer.</div>
+    <span class="persona-tab-count">6 stories</span>
+  </div>
+</div>
+
+<div class="persona-section" id="leder">
+  <div class="section-intro">
+    <div class="section-kicker">Persona 01</div>
+    <div class="section-title">Lederen</div>
+    <p class="section-subtitle">Du skal ta Bitastad fra 159 til 300+ lokasjoner. Det betyr M&A, strategiske beslutninger, portef&#248;ljesty ring og styrearbeid &#8212; alt p&#229; &#233;n gang. KI gir deg bedre beslutningsgrunnlag, raskere.</p>
+  </div>
+  <div class="stories-grid">
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Strategi</div>
+        <div class="story-title">Fra magef&#248;lelse &#8594; datadrevet ekspansjonsstrategi</div>
+        <div class="story-from-to">&#171;Hvor &#229;pner vi de neste 20?&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Styrem&#248;te: vekstplan for 2026&#8211;28 skal vedtas</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>trafikkdata, demografi, kj&#248;pekraft og konkurransebilde</strong> per norsk kommune</li>
+          <li data-n="2">Kobler mot Bitastads egne <strong>suksessfaktorer</strong> fra de 30 best-presterende lokasjoner</li>
+          <li data-n="3">Leverer <strong>rangert markedskart</strong> med anbefalt konsept og estimert omsetning per marked</li>
+          <li data-n="4">Du tar strategisk beslutning &#8212; KI har gjort <strong>analysejobben p&#229; timer, ikke m&#229;neder</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Bedre beslutningsgrunnlag</span>
+          <span class="vtag">Strategisk forsprang</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Styring</div>
+        <div class="story-title">Fra 300 Excel-filer &#8594; ett styringsbilde</div>
+        <div class="story-from-to">&#171;Hvilke lokasjoner trenger oppmerksomhet?&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Mandag morgen &#8212; du vil ha oversikt over konsernets tilstand</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI aggregerer data fra alle lokasjoner: <strong>omsetning, margin, NPS, bemanning, svinn</strong></li>
+          <li data-n="2">Sorterer automatisk etter prioritet &#8212; du ser bare det som <strong>krever handling</strong></li>
+          <li data-n="3">Lokasjoner som trenger f&#248;lge opp f&#229;r <strong>foreslatte tiltak</strong> &#8212; du godkjenner, regionleder eksekverer</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Konsernoversikt p&#229; 10 min</span>
+          <span class="vtag">Fokus der det teller</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">M&A</div>
+        <div class="story-title">Fra avisartikkel &#8594; kvalifisert oppkj&#248;pskandidat</div>
+        <div class="story-from-to">&#171;Er dette noe for oss?&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Du leser at en regional restaurantkjede er til salgs</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI henter <strong>offentlige regnskapstall, anmeldelser, lokaliseringer og ansatttall</strong></li>
+          <li data-n="2">Analyserer <strong>strategisk fit</strong> mot Bitastads portef&#248;lje og vekststrategi</li>
+          <li data-n="3">Leverer <strong>1-sides oppkj&#248;psbriefing</strong> til neste lederm&#248;te &#8212; inkl. r&#248;de flagg</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Raskere M&A-screening</span>
+          <span class="vtag">Ingen muligheter overses</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Kommunikasjon</div>
+        <div class="story-title">Fra kvartalstall &#8594; investorpresentasjon</div>
+        <div class="story-from-to">&#171;Vi trenger en presentasjon til Salvesen &amp; Thams&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Kvartalsmote med eierne &#8212; du har 3 dager</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">Du gir KI <strong>n&#248;kkeltall og prioriteringer</strong> for kvartalet</li>
+          <li data-n="2">KI lager <strong>narrativ, lysbilder og datapresentasjon</strong> i Bitastads stil</li>
+          <li data-n="3">Du bruker frigjort tid p&#229; <strong>den strategiske diskusjonen</strong> &#8212; ikke PowerPoint</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Spart 2 dager arbeid</span>
+          <span class="vtag">Konsistent presentasjonsstandard</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Risikostyring</div>
+        <div class="story-title">Fra stille bekymring &#8594; tidlig krisevarsel</div>
+        <div class="story-from-to">&#171;Hva kan g&#229; galt de neste 6 m&#229;nedene?&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Halv&#229;rlig strategigjennomgang</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>markedstrender, konkurrentbevegelser og interne KPIer</strong></li>
+          <li data-n="2">Identifiserer <strong>topp-5 risikoer</strong> for konsernet de neste 6 m&#229;neder med sannsynlighet og konsekvens</li>
+          <li data-n="3">Foresl&#229;r <strong>avb&#248;tende tiltak</strong> og eier per risiko</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Proaktiv ikke reaktiv ledelse</span>
+          <span class="vtag">Strukturert risikobevissthet</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Beslutningsst&#248;tte</div>
+        <div class="story-title">Fra dilemma &#8594; strukturert beslutningsgrunnlag</div>
+        <div class="story-from-to">&#171;Skal vi kj&#248;pe ut denne franchisetakeren?&#187;</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Franchisetaker underpresterer &#8212; vurdering av overtagelse</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>lokasjonshistorikk, eierens &#248;konomi og lokalt markedspotensial</strong></li>
+          <li data-n="2">Simulerer <strong>tre scenarier</strong>: beholde, overta selv, avvikle</li>
+          <li data-n="3">Estimerer <strong>finansielle konsekvenser og risiko</strong> per alternativ</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Beslutning p&#229; fakta</span>
+          <span class="vtag">Ikke bare magef&#248;lelse</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="persona-section" id="hq">
+  <div class="section-intro">
+    <div class="section-kicker">Persona 02</div>
+    <div class="section-title">Ansatt p&#229; HQ / Stab</div>
+    <p class="section-subtitle">Du er &#233;n av 90 p&#229; servicekontoret i Trondheim. KI er ikke en trussel mot jobben din &#8212; det er det som gj&#248;r det mulig &#229; betjene 300 lokasjoner uten &#229; bli 300 mennesker p&#229; HQ.</p>
+  </div>
+  <div class="stories-grid">
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">HR</div>
+        <div class="story-title">Fra 80 s&#248;knader &#8594; 5 intervjuer p&#229; &#233;n time</div>
+        <div class="story-from-to">HR-r&#229;dgiver som rekrutterer til 12 &#229;pne stillinger samtidig</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Ny Big Bite &#229;pner &#8212; 8 roller skal fylles innen 3 uker</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI leser alle CVer og screener mot <strong>rollekrav og suksessmark&#248;rer</strong> fra tilsvarende &#229;pninger</li>
+          <li data-n="2">Sender automatisk <strong>m&#229;lrettede sp&#248;rsm&#229;l</strong> til topp-kandidater og analyserer svarene</li>
+          <li data-n="3">Du mottar <strong>shortlist med score, begrunnelse og anbefalte intervjuspm</strong></li>
+          <li data-n="4">Du bruker tid p&#229; <strong>menneskemotene</strong> &#8212; ikke sorteringsarbeidet</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">H&#229;ndterer dobbelt volum</span>
+          <span class="vtag">Mer tid til de riktige kandidatene</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Marked</div>
+        <div class="story-title">Fra &#233;n kampanje &#8594; 70 lokale versjoner</div>
+        <div class="story-from-to">Markedsansvarlig som skal n&#229; alle lokasjoner</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">HQ lanserer sommarkampanje for Jordb&#230;rpikene</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">Du lager <strong>&#233;n masterkampanje</strong> med KI som sparringpartner p&#229; tekst og konsept</li>
+          <li data-n="2">KI genererer <strong>lokalt tilpassede varianter</strong> per by &#8212; dialekt, lokale events, sesong</li>
+          <li data-n="3">Automatisk publisering p&#229; <strong>riktig kanal, riktig tidspunkt</strong> per lokasjon</li>
+          <li data-n="4">KI rapporterer <strong>hva som fungerte</strong> til neste kampanje</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Nasjonal rekkevidde uten ekstra stab</span>
+          <span class="vtag">Mer tid til kreativt arbeid</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">&#216;konomi / AST</div>
+        <div class="story-title">Fra bilagsberget &#8594; ryddet innboks hver morgen</div>
+        <div class="story-from-to">Regnskapsmedarbeider i AST med 30+ selskaper</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Mandag morgen &#8212; 340 nye bilag i systemet over helgen</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI har allerede <strong>lest, tolket og kontert</strong> 280 standardbilag over natten</li>
+          <li data-n="2">Du ser kun de <strong>60 avvikene</strong> som trenger menneskelig vurdering</li>
+          <li data-n="3">Avvik er <strong>forklart og foresl&#229;tt l&#248;st</strong> &#8212; du bekrefter eller justerer</li>
+          <li data-n="4">Rapportpakke til klient genereres <strong>automatisk ved m&#229;nedsslutt</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Fra rutinearbeid til faglig arbeid</span>
+          <span class="vtag">Kapasitet til dobbelt s&#229; mange kunder</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">IT</div>
+        <div class="story-title">Fra brannslukking &#8594; proaktiv systemhelse</div>
+        <div class="story-from-to">IT-ansvarlig med ansvar for 300 POS-systemer</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">KI overv&#229;ker alle systemer kontinuerlig</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI oppdager <strong>uvanlig CPU-last p&#229; kassesystemet</strong> i en Big Bite-lokasjon</li>
+          <li data-n="2">Automatisk diagnose: <strong>minnelekkasje etter siste oppdatering</strong> &#8212; f&#248;r det f&#248;rer til nedetid</li>
+          <li data-n="3">Foresl&#229;r og utf&#248;rer <strong>preventiv restart</strong> utenfor &#229;pningstid</li>
+          <li data-n="4">Du informeres i etterkant &#8212; <strong>ingen alarmanrop midt i natten</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Fra reaktiv til proaktiv IT</span>
+          <span class="vtag">Ingen uventede driftsstans</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Innkj&#248;p / Matmegleren</div>
+        <div class="story-title">Fra forhandlingsinstinkt &#8594; datadrevet avtale</div>
+        <div class="story-from-to">Innkj&#248;per med 50+ leverand&#248;ravtaler</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Rammeavtale med lakselleverand&#248;r skal reforhandles</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>forbruksm&#248;nster, pristrend og markedsalternativer</strong> siste 24 m&#229;neder</li>
+          <li data-n="2">Identifiserer at vi kj&#248;per <strong>23% mer i Q3</strong> &#8212; sesongrabatt er uforhandlet potensial</li>
+          <li data-n="3">Genererer <strong>forhandlingsunderlag med konkrete argumenter og fallbackposisjoner</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Sterkere forhandlingsposisjon</span>
+          <span class="vtag">Lavere innkj&#248;pskostnad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Konsept</div>
+        <div class="story-title">Fra kundedata &#8594; menyinnsikt du aldri fikk f&#248;r</div>
+        <div class="story-from-to">Konseptansvarlig for Sabrura som jobber med menyutvikling</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">&#171;Hva selger vi egentlig, og hvorfor?&#187;</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>salgsdata per menypunkt, tidspunkt, lokasjon og sesong</strong> p&#229; tvers av kjeden</li>
+          <li data-n="2">Avdekker: <strong>&#171;Laksemaki selger 40% mer torsdager og fredager&#187;</strong> &#8212; aldri sett i rapport</li>
+          <li data-n="3">Foresl&#229;r <strong>ukesmeny-tilpasning og promoteringstiltak</strong> basert p&#229; m&#248;nsteret</li>
+          <li data-n="4">Estimerer <strong>omsetningseffekt</strong> ved endring</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Menydesign basert p&#229; adferd</span>
+          <span class="vtag">H&#248;yere snittbong</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="persona-section" id="restaurant">
+  <div class="section-intro">
+    <div class="section-kicker">Persona 03</div>
+    <div class="section-title">Ansatt i restaurant</div>
+    <p class="section-subtitle">For deg er KI ikke et strategisk verkt&#248;y &#8212; det er en kollega du ikke ser, som hjelper deg gjennom en hektisk arbeidsdag. Den beste KI er den du ikke tenker p&#229; fordi den bare virker.</p>
+  </div>
+  <div class="stories-grid">
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Daglig leder</div>
+        <div class="story-title">Fra 2-timers vaktplanarbeid &#8594; 15 minutter</div>
+        <div class="story-from-to">Daglig leder som skal planlegge neste uke</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Mandag formiddag &#8212; neste ukes vaktplan skal settes</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI har allerede lagd <strong>utkast basert p&#229; historisk trafikk, lokale events og ansattes &#248;nsker</strong></li>
+          <li data-n="2">Du ser planen, justerer <strong>2&#8211;3 ting</strong> og sender</li>
+          <li data-n="3">KI varsler om <strong>eventuelle konflikter</strong> med arbeidstidsloven automatisk</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Spart 1,5 time per uke</span>
+          <span class="vtag">Riktigere bemanning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Daglig leder</div>
+        <div class="story-title">Fra manuelle varetellingslister &#8594; ferdig bestillingsutkast</div>
+        <div class="story-from-to">Daglig leder som bestiller til storkj&#248;kken</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Onsdag &#8212; bestilling til Matmegleren m&#229; inn innen kl. 14</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI foresl&#229;r bestilling basert p&#229; <strong>salg siste uke, neste ukes vaktplan og prognostisert trafikk</strong></li>
+          <li data-n="2">Du ser utkastet p&#229; mobilen &#8212; <strong>justerer &#233;n linje</strong> fordi du vet det er eksamen i helgen</li>
+          <li data-n="3">Send med ett klikk &#8212; <strong>aldri tomt, aldri for mye</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Mindre svinn</span>
+          <span class="vtag">Aldri tomme hyller</span>
+          <span class="vtag">Tid tilbake</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Daglig leder</div>
+        <div class="story-title">Fra akutt sykmelding &#8594; l&#248;st p&#229; 8 minutter</div>
+        <div class="story-from-to">Daglig leder klokken 06.15</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">SMS fra kokk: &#171;Syk i dag, beklager&#187;</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI sjekker <strong>tilgjengelighet, kompetanse og n&#230;rhet</strong> for alle ansatte</li>
+          <li data-n="2">Sender automatisk <strong>vikarforesp&#248;rsel til 3 kandidater</strong> &#8212; &#171;Kan du jobbe i dag kl. 10?&#187;</li>
+          <li data-n="3">F&#248;rste som svarer ja <strong>bekreftes automatisk</strong> &#8212; du informeres</li>
+          <li data-n="4">Du slipper &#229; ringe gjennom hele <strong>telefonlisten halvsovende</strong></li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Stressfri morgenkrise</span>
+          <span class="vtag">Full bemanning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Servit&#248;r</div>
+        <div class="story-title">Fra usikker p&#229; allergener &#8594; trygt svar p&#229; sekunder</div>
+        <div class="story-from-to">Ny servit&#248;r i Sabrura &#8212; gjest med glutenallergi</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Gjest sp&#248;r: &#171;Inneholder Salmon Crispy soya?&#187;</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">Servit&#248;r sp&#248;r KI-assistenten via h&#229;ndholdt: <strong>&#171;Salmon Crispy &#8212; allergener?&#187;</strong></li>
+          <li data-n="2">KI svarer umiddelbart med <strong>fullstendig innholdsliste og alternativer</strong></li>
+          <li data-n="3">Servit&#248;r gir <strong>trygt og korrekt svar</strong> &#8212; ingen panikk, ingen feilsvar</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Trygg i jobben fra dag 1</span>
+          <span class="vtag">Ingen allergi-feil</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Kokk</div>
+        <div class="story-title">Fra overfylt kj&#248;kken &#8594; riktig prep til riktig tid</div>
+        <div class="story-from-to">Kj&#248;kkensjef i Kompis som forbereder lunsjrush</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">Klokken 09.00 &#8212; hva og hvor mye skal preppes?</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI analyserer <strong>historisk salg tilsvarende dag, v&#230;r og lokale events</strong></li>
+          <li data-n="2">Gir prep-plan: <strong>&#171;I dag: 40% mer suppe, reduser sandwich-prep&#187;</strong></li>
+          <li data-n="3">Etter lunsj: <strong>avviksrapport</strong> &#8212; hva gikk ut, hva ble kastet, hva manglet</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Mindre kasting</span>
+          <span class="vtag">Aldri tomt midt i rush</span>
+          <span class="vtag">Bedre daglig flyt</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="story-top">
+        <div class="story-role">Ny ansatt</div>
+        <div class="story-title">Fra f&#248;rste dag &#8594; trygg p&#229; gulvet innen en uke</div>
+        <div class="story-from-to">Ny deltidsansatt, 19 &#229;r, ingen restauranterfaring</div>
+      </div>
+      <div class="story-trigger">
+        <span class="trigger-label">Trigger</span>
+        <span class="trigger-text">F&#248;rste arbeidsdag &#8212; daglig leder har ikke tid til 4 timers oppl&#230;ring</span>
+      </div>
+      <div class="story-flow">
+        <div class="flow-label">Flow</div>
+        <ul class="flow-list">
+          <li data-n="1">KI-oppl&#230;ringsapp: <strong>10-minutters moduler</strong> tilpasset rollen &#8212; kasse, kj&#248;kken, service</li>
+          <li data-n="2">Situasjonsscenarier: <strong>&#171;Gjest klager p&#229; ventetid &#8212; hva gj&#248;r du?&#187;</strong></li>
+          <li data-n="3">Kan sp&#248;rre KI-assistenten <strong>hva som helst underveis i skiftet</strong> uten &#229; forstyrre kolleger</li>
+          <li data-n="4">Daglig leder ser <strong>l&#230;ringsfremdrift</strong> og vet n&#229;r den ansatte er klar</li>
+        </ul>
+      </div>
+      <div class="story-value">
+        <div class="value-label">Verdi for deg</div>
+        <div class="value-tags">
+          <span class="vtag">Tryggere start</span>
+          <span class="vtag">Selvstendig raskere</span>
+          <span class="vtag">Bedre opplevelse f&#248;rste uke</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="day-strip">
+  <div class="day-strip-kicker">Oppsummering</div>
+  <h3>En dag med KI &#8212; tre perspektiver, &#233;n organisasjon</h3>
+  <div class="day-grid">
+
+    <div>
+      <div class="day-col-label">Persona 01 &#183; Lederen</div>
+      <div class="day-item">
+        <div class="day-time">07:30</div>
+        <div class="day-event"><strong>Morgenoversikt</strong> KI har sortert konsernets 300 lokasjoner &#8212; 4 trenger oppf&#248;lging i dag <span class="ki-tag">KI-dashboard</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">09:00</div>
+        <div class="day-event"><strong>M&A-briefing</strong> KI har analysert regional kjede over natten &#8212; klar til strategim&#248;te <span class="ki-tag">KI-analyse</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">13:00</div>
+        <div class="day-event"><strong>Styrepresentasjon</strong> KI lagde lysbilder &#8212; du brukte morgenen p&#229; argumentene <span class="ki-tag">KI-innhold</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">16:00</div>
+        <div class="day-event"><strong>Risikovarsling</strong> KI flagger at en franchisetaker viser tidlige tegn p&#229; likviditetsstress <span class="ki-tag">KI-overv&#229;king</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="day-col-label">Persona 02 &#183; HQ-ansatt (HR)</div>
+      <div class="day-item">
+        <div class="day-time">08:00</div>
+        <div class="day-event"><strong>Shortlist klar</strong> KI har screenet 60 s&#248;knader &#8212; 5 intervjuklare kandidater venter p&#229; deg <span class="ki-tag">KI-screening</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">10:30</div>
+        <div class="day-event"><strong>Turnover-advarsel</strong> KI varsler: ansatt i Bergen viser risikosignaler &#8212; du ringer daglig leder <span class="ki-tag">KI-analyse</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">14:00</div>
+        <div class="day-event"><strong>Onboarding-plan</strong> Ny Kompis-eier signerte &#8212; KI har allerede laget 90-dagersplan <span class="ki-tag">KI-automatikk</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">15:30</div>
+        <div class="day-event"><strong>L&#248;nnsanalyse</strong> KI identifiserer 3 lokasjoner med unormalt l&#248;nnsavvik &#8212; du vurderer <span class="ki-tag">KI-innsikt</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="day-col-label">Persona 03 &#183; Restaurantansatt</div>
+      <div class="day-item">
+        <div class="day-time">06:15</div>
+        <div class="day-event"><strong>Sykmelding l&#248;st</strong> KI fant vikar automatisk &#8212; daglig leder fikk bekreftelse mens kaffen trakk <span class="ki-tag">KI-automatikk</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">09:00</div>
+        <div class="day-event"><strong>Prep-plan klar</strong> KI: &#171;I dag 30% mer suppe &#8212; studenteksamen p&#229; campus&#187; <span class="ki-tag">KI-prognose</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">12:30</div>
+        <div class="day-event"><strong>Allergensp&#248;rsm&#229;l</strong> Ny servit&#248;r sp&#248;r KI &#8212; gir trygt svar til gjest p&#229; 4 sekunder <span class="ki-tag">KI-assistent</span></div>
+      </div>
+      <div class="day-item">
+        <div class="day-time">16:00</div>
+        <div class="day-event"><strong>Bestillingsutkast klart</strong> KI: &#171;Godkjenn bestilling til Matmegleren?&#187; &#8212; ett klikk, ferdig <span class="ki-tag">KI-automatikk</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
