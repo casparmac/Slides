@@ -74,7 +74,7 @@ body,div,span,p,button{font-family:system-ui,-apple-system,sans-serif}
 .cath .cdot{width:9px;height:9px;border-radius:3px}
 .qgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .qc{border:1px solid #e5e7eb;border-left-width:3px;border-radius:10px;padding:12px 13px;background:#fff;cursor:pointer;transition:border-color .15s}
-.qc:hover{border-color:#93c5fd;border-left-color:inherit;background:#f8faff}
+.qc:hover{border-color:#93c5fd;background:#f8faff}
 .qq{font-size:12px;color:#374151;font-weight:500;line-height:1.4;margin-bottom:8px}
 .qn{font-size:13px;font-weight:600;color:#111;line-height:1.3}
 .qarrow{color:#9ca3af;font-weight:400}
@@ -91,7 +91,7 @@ body,div,span,p,button{font-family:system-ui,-apple-system,sans-serif}
 <button class="tab on" onclick="sT('s',this)">De seks søylene</button>
 <button class="tab" onclick="sT('e',this)">Hvor starter kunden?</button>
 <button class="tab" onclick="sT('j',this)">Kundereisen</button>
-<button class="tab" onclick="sT('m',this)">Praksismodeller</button>
+<button class="tab" onclick="sT('m',this)">Blueprints</button>
 <button class="tab" onclick="sT('a',this)">Akseleratorer</button>
 </div>
 
@@ -123,7 +123,7 @@ body,div,span,p,button{font-family:system-ui,-apple-system,sans-serif}
 </div>
 
 <div id="tm" class="pnl">
-<div class="tabintro"><b>Praksismodellene er tenkeverktøyene</b> — de visuelle modellene som forklarer hvordan vi går fra ambisjon til verdi. Hver er hentet rett ut av søylene, og kan tegnes på tavlen eller vises på en slide i et kundemøte.</div>
+<div class="tabintro"><b>Blueprintene er tenkeverktøyene</b> — de visuelle modellene som forklarer hvordan vi går fra ambisjon til verdi. Hver er hentet rett ut av søylene, og kan tegnes på tavlen eller vises på en slide i et kundemøte.</div>
 <div class="mg" id="mg"></div>
 </div>
 
@@ -156,19 +156,19 @@ lev:[["akb","Verdi/tid-matrise med gjenbrukbarhet som egen akse"],["akt","Proses
 groups:[{title:"Hva er den optimale operasjonsmodellen for KI?",items:[
 "#d97706|Designer team og eierskap|Produktteam, plattformteam og CoE med tydelig mandat og beslutningsrett",
 "#d97706|Setter samspillet|Roller, beslutningsstrukturer og samhandling mellom forretning og IT",
-"#d97706|Industrialiserer leveransen|Agentfabrikk og pluginfabrikk — fra håndverk til gjentakbar produksjon"]},
+"#d97706|Industrialiserer leveransen|Agent Factory og Plugin Factory — fra håndverk til gjentakbar produksjon"]},
 {title:"Hvordan vil KI endre dagens operasjonsmodell?",items:[
 "#d97706|Kartlegger hva som endres|Hvilke prosesser, roller og beslutninger flyttes når KI skalerer",
 "#d97706|Redesigner fra bunnen|Ikke press KI inn i gammel drift — spør hvordan vi ville bygget dette fra scratch i dag",
 "#d97706|Vurderer ringvirkningene|Organisasjonsstruktur, leverandørmodell og økosystem"]}],
-lev:[["akt","Operasjonsmodell-design og Team Canvas"],["akb","Agentfabrikk-blueprint"],["akt","Prosessredesign rundt menneske + maskin"],["akb","CoE Playbook"]]},
+lev:[["akt","Operasjonsmodell-design og Team Canvas"],["akb","Agent Factory-blueprint"],["akt","Prosessredesign rundt menneske + maskin"],["akb","CoE Playbook"]]},
 4:{h:"Data og teknologi",t:"Plattformen som gjør KI mulig å skalere — sikkert, robust og gjenbrukbart. Spennet går fra åpne skyløsninger på kanten til lukkede, air-gapede miljøer for nasjonal sikkerhet.",
 groups:[{title:"Hva vi gjør i praksis",items:[
 "#16a34a|Bygger datagrunnlaget|Datakvalitet, dataeierskap og gjenbrukbar kunnskapsdokumentasjon",
 "#16a34a|Designer agent-arkitektur|Orkestrator, agenter, minne, verktøy og RAG-mønstre",
 "#16a34a|Dekker hele sikkerhetsspekteret|Fra kant til air-gap — for kommersiell drift, regulerte miljøer og forsvar",
 "#16a34a|Ivaretar digital suverenitet|Hvor data og modeller lever, og hvem som faktisk kontrollerer dem",
-"#16a34a|Industrialiserer integrasjoner|Pluginfabrikk for gjenbrukbare koblinger mot eksisterende systemer",
+"#16a34a|Industrialiserer integrasjoner|Plugin Factory for gjenbrukbare koblinger mot eksisterende systemer",
 "#16a34a|Sikrer mot misbruk|Red-teaming, kill switch og kontroller for ansvarlig KI",
 "#16a34a|Velger plattform leverandøruavhengig|Microsoft, AWS, GCP, open source eller hybrid"]}],
 lev:[["akb","Teknologi- og arkitekturblueprint"],["akt","Dataplattform-vurdering og migrasjonsplan"],["akb","Sikkerhetsarkitektur inkl. suverenitetskrav"],["akb","Agent- og plattformheatmap"]]},
@@ -206,19 +206,19 @@ var ARCH=[
 var J={
 1:[["Aktiviteter","KI Ambition Workshop med ledelsen. Modenhetsvurdering på tvers av ledelse, kultur, data og teknologi. Posisjonering og benchmark mot bransje."],["Leveranser","KI Readiness Report. Modenhetsscore per dimensjon. Prioritert liste over mulighetsområder koblet til forretningsmål."],["Sopra Steria-roller","KI Strategy Lead + Data Architect + Change Advisor. Vi fasiliterer valgene, ikke bare rådgir."]],
 2:[["Aktiviteter","Verdi- og prosesskartlegging. Business case for topp-initiativene. Operasjonsmodell- og CoE-design. Teknologi- og arkitekturretning."],["Leveranser","Strategisk KI-veikart. Prioritert portefølje med business case. CoE-mandat. Teknologi-roadmap."],["Sopra Steria-roller","Strateg + løsningsarkitekt + endringsleder. Tverrfaglig team som speiler kundens egen organisasjon."]],
-3:[["Aktiviteter","Agentfabrikk settes opp. Første agenter bygges trygt. Kompetanseprogram for nøkkelpersoner. Adopsjon og lederforankring starter."],["Leveranser","Produksjonsklare pilotresultater. Dokumenterte gevinster. Opplærte team. Control Tower aktivert."],["Sopra Steria-roller","Utvikling + UX + endring + KI-drift. Vi leverer sammen med kundens team, ikke i stedet for dem."]],
-4:[["Aktiviteter","Utrulling til flere forretningsområder. Skalering av agentfabrikken. Gevinstrealisering og måling. Overgang til selvstendig drift."],["Leveranser","Skalerings- og utrullingsplan. Gevinstrealiseringsrapport. Selvbærende CoE med intern KI-kapabilitet."],["Sopra Steria-roller","Managed Services eller rådgivning. Vi bygger kapabilitet slik at kunden gradvis eier mer selv."]]
+3:[["Aktiviteter","Agent Factory settes opp. Første agenter bygges trygt. Kompetanseprogram for nøkkelpersoner. Adopsjon og lederforankring starter."],["Leveranser","Produksjonsklare pilotresultater. Dokumenterte gevinster. Opplærte team. Control Tower aktivert."],["Sopra Steria-roller","Utvikling + UX + endring + KI-drift. Vi leverer sammen med kundens team, ikke i stedet for dem."]],
+4:[["Aktiviteter","Utrulling til flere forretningsområder. Skalering av Agent Factory. Gevinstrealisering og måling. Overgang til selvstendig drift."],["Leveranser","Skalerings- og utrullingsplan. Gevinstrealiseringsrapport. Selvbærende CoE med intern KI-kapabilitet."],["Sopra Steria-roller","Managed Services eller rådgivning. Vi bygger kapabilitet slik at kunden gradvis eier mer selv."]]
 };
 
 var M=[
-{tags:[1],n:"Ambisjonsbroen",sub:"Fra forretningsmål til posisjon og ambisjon",d:"Oversetter et konkret forretningsmål — vekst, effektivitet, konkurranseevne, innbyggerverdi eller endringsevne — til en KI-ambisjon, og kobler den til en valgt posisjon: fra konkurranseparitet til varig fortrinn.",use:"Tegnes i åpningen av et strategimøte for å flytte samtalen fra «KI» til «hva vi vil oppnå»."},
-{tags:[2],n:"Verdi/tid/gjenbruk-matrisen",sub:"Prioritering langs fire akser",d:"Plotter initiativer på verdi og tidshorisont, og vekter inn kompleksitet og gjenbrukbarhet på tvers av forretningsområder. Skiller quick wins fra strategiske spill.",use:"Brukes til å bygge porteføljen og forsvare rekkefølgen overfor ledelse og styre."},
-{tags:[2,5],n:"Prosess-røntgen",sub:"Sju aktiviteter, riktig KI på riktig sted",d:"Bryter en kjerneprosess ned i aktiviteter — kommunikasjon, datainnhenting, planlegging, registrering, analyse, utførelse, informering — og kobler hver til riktig KI-type. Avdekker hvor verdien faktisk ligger.",use:"Verksted med fagmiljøet for å gå fra «automatisere det vi gjør» til «bygge det vi burde gjort»."},
-{tags:[3],n:"Operasjonsmodellens to sider",sub:"Drive KI · endre driften",d:"Holder to spørsmål adskilt: hvilken operasjonsmodell KI-arbeidet krever, og hvordan KI endrer dagens drift, roller og beslutninger. To svar, ikke ett.",use:"Strukturerer dialogen med C-suite om organisering og transformasjon."},
-{tags:[3,4,6],n:"Fabrikk + Kontrolltårn",sub:"Industriell produksjon med innebygd kontroll",d:"Agentfabrikk og pluginfabrikk gjør KI-leveranse til gjentakbar produksjon med risikodifferensierte produksjonslinjer. Control Tower gir én løpende oversikt over portefølje, risiko, kost og etterlevelse.",use:"Svaret til kunden som har «mistet oversikten» — fra agentørken til agentmotorvei."},
-{tags:[4],n:"Sikkerhetsspekteret",sub:"Fra kant til air-gap",d:"Plasserer løsningen langs et spenn fra åpne skyløsninger til lukkede, air-gapede miljøer — styrt av krav til sikkerhet, regulering og digital suverenitet. Inkluderer red-teaming og kill switch.",use:"Rammer inn samtalen med regulerte og suverenitetskritiske kunder."},
-{tags:[5],n:"Forankringsstigen",sub:"Topp-til-bunn, alle roller",d:"Sikrer at KI forankres i hvert lag — styre, ledelse, mellomledere og medarbeidere — bygget på ADKAR og psykologisk trygghet. Ingen verdi før løsningen faktisk tas i bruk.",use:"Brukes til å vise at adopsjon er en plan, ikke et enkeltstående kurs."},
-{tags:[6],n:"Tillit før skala",sub:"Oversikt → kontroll → trygg skalering",d:"Modellen for kunden som må ha kontroll før de tør mer: kartlegg porteføljen, sett governance og Control Tower, og skalér først når tilliten er på plass. Særlig bank, helse, forsvar og offentlig.",use:"Snur «vi tør ikke» til «nå kan vi» — kontroll som muliggjører, ikke bremse."}
+{tags:[1],n:"Ambition Blueprint",sub:"Fra forretningsmål til posisjon og ambisjon",d:"Oversetter et konkret forretningsmål — vekst, effektivitet, konkurranseevne, innbyggerverdi eller endringsevne — til en KI-ambisjon, og kobler den til en valgt posisjon: fra konkurranseparitet til varig fortrinn.",use:"Tegnes i åpningen av et strategimøte for å flytte samtalen fra «KI» til «hva vi vil oppnå»."},
+{tags:[2],n:"Prioritization Blueprint",sub:"Prioritering langs fire akser",d:"Plotter initiativer på verdi og tidshorisont, og vekter inn kompleksitet og gjenbrukbarhet på tvers av forretningsområder. Skiller quick wins fra strategiske spill.",use:"Brukes til å bygge porteføljen og forsvare rekkefølgen overfor ledelse og styre."},
+{tags:[2,5],n:"Process Blueprint",sub:"Sju aktiviteter, riktig KI på riktig sted",d:"Bryter en kjerneprosess ned i aktiviteter — kommunikasjon, datainnhenting, planlegging, registrering, analyse, utførelse, informering — og kobler hver til riktig KI-type. Avdekker hvor verdien faktisk ligger.",use:"Verksted med fagmiljøet for å gå fra «automatisere det vi gjør» til «bygge det vi burde gjort»."},
+{tags:[3],n:"Operating Model Blueprint",sub:"Drive KI · endre driften",d:"Holder to spørsmål adskilt: hvilken operasjonsmodell KI-arbeidet krever, og hvordan KI endrer dagens drift, roller og beslutninger. To svar, ikke ett.",use:"Strukturerer dialogen med C-suite om organisering og transformasjon."},
+{tags:[3,4,6],n:"Agent Factory & Control Tower",sub:"Industriell produksjon med innebygd kontroll",d:"Agent Factory og Plugin Factory gjør KI-leveranse til gjentakbar produksjon med risikodifferensierte produksjonslinjer. Control Tower gir én løpende oversikt over portefølje, risiko, kost og etterlevelse.",use:"Svaret til kunden som har «mistet oversikten» — fra agentørken til agentmotorvei."},
+{tags:[4],n:"Security Blueprint",sub:"Fra kant til air-gap",d:"Plasserer løsningen langs et spenn fra åpne skyløsninger til lukkede, air-gapede miljøer — styrt av krav til sikkerhet, regulering og digital suverenitet. Inkluderer red-teaming og kill switch.",use:"Rammer inn samtalen med regulerte og suverenitetskritiske kunder."},
+{tags:[5],n:"Adoption Blueprint",sub:"Topp-til-bunn, alle roller",d:"Sikrer at KI forankres i hvert lag — styre, ledelse, mellomledere og medarbeidere — bygget på ADKAR og psykologisk trygghet. Ingen verdi før løsningen faktisk tas i bruk.",use:"Brukes til å vise at adopsjon er en plan, ikke et enkeltstående kurs."},
+{tags:[6],n:"Governance Blueprint",sub:"Oversikt → kontroll → trygg skalering",d:"Modellen for kunden som må ha kontroll før de tør mer: kartlegg porteføljen, sett governance og Control Tower, og skalér først når tilliten er på plass. Særlig bank, helse, forsvar og offentlig.",use:"Snur «vi tør ikke» til «nå kan vi» — kontroll som muliggjører, ikke bremse."}
 ];
 
 var ACC=[
@@ -234,7 +234,7 @@ var ACC=[
 ]},
 {cat:"Operasjonsmodell",c:"#d97706",items:[
 {q:"KI-arbeidet vårt er spredt og ingen eier det",n:"CoE-design",out:"Mandat, roller og governance for din KI-enhet",dur:"2 uker",s:[3]},
-{q:"Vi automatiserer gammelt rot i stedet for å tenke nytt",n:"Prosess-røntgen",out:"Én kjerneprosess brutt ned og redesignet rundt KI",dur:"2 uker",s:[3,5]},
+{q:"Vi automatiserer gammelt rot i stedet for å tenke nytt",n:"Prosess-redesign",out:"Én kjerneprosess brutt ned og redesignet rundt KI",dur:"2 uker",s:[3,5]},
 {q:"Skal vi kjøpe, bygge eller inngå partnerskap?",n:"Kjøp/bygg/partner-vurdering",out:"Anbefalt sourcing-strategi per kapabilitet",dur:"1–2 uker",s:[3]},
 {q:"Vi vet ikke hvordan KI endrer jobbene våre",n:"Rolle- og arbeidsflytanalyse",out:"Hvilke roller og oppgaver som endres når KI skalerer",dur:"2 uker",s:[3]}
 ]},
@@ -269,7 +269,7 @@ function sP(id){for(var i=1;i<=6;i++)document.getElementById('c'+i).classList.to
 function rArch(){var h='';ARCH.forEach(function(a){h+='<div class="ac" onclick="sendPrompt(\'Hvordan tar vi imot arketypen '+a.n+' i et kundemøte?\')"><div class="an">'+a.n+'</div><div class="ad">'+a.d+'</div><div class="aentry">Starter i: <b>'+a.e+'</b></div></div>';});document.getElementById('ag').innerHTML=h;}
 function rJ(id){var c=J[id];var h='<div class="jcg">';c.forEach(function(x){h+='<div class="jc"><div class="jch">'+x[0]+'</div><div class="jcp">'+x[1]+'</div></div>';});document.getElementById('jd').innerHTML=h+'</div>';}
 function sJ(id){for(var i=1;i<=4;i++){var e=document.getElementById('j'+i);e.style.borderTopColor=i===id?jc[id]:'transparent';e.classList.toggle('sel',i===id);}rJ(id);}
-function rM(){var h='';M.forEach(function(m){var tg=m.tags.map(function(t){return'<span class="sb sb'+t+'">SØYLE '+t+'</span>';}).join('');h+='<div class="mc" onclick="sendPrompt(\'Forklar praksismodellen '+m.n+' — hvordan tegner og forteller jeg den i et kundemøte?\')"><div class="mtags">'+tg+'</div><div class="mn">'+m.n+'</div><div class="mdesc-sub">'+m.sub+'</div><div class="md">'+m.d+'</div><div class="muse"><b>I møtet:</b> '+m.use+'</div></div>';});document.getElementById('mg').innerHTML=h;}
+function rM(){var h='';M.forEach(function(m){var tg=m.tags.map(function(t){return'<span class="sb sb'+t+'">SØYLE '+t+'</span>';}).join('');h+='<div class="mc" onclick="sendPrompt(\'Forklar blueprinten '+m.n+' — hvordan tegner og forteller jeg den i et kundemøte?\')"><div class="mtags">'+tg+'</div><div class="mn">'+m.n+'</div><div class="mdesc-sub">'+m.sub+'</div><div class="md">'+m.d+'</div><div class="muse"><b>I møtet:</b> '+m.use+'</div></div>';});document.getElementById('mg').innerHTML=h;}
 function rA(){var h='';ACC.forEach(function(g){var cards='';g.items.forEach(function(it){var sb=it.s.map(function(t){return'<span class="sb sb'+t+'">SØYLE '+t+'</span>';}).join('');cards+='<div class="qc" style="border-left-color:'+g.c+'" onclick="sendPrompt(\'Beskriv akseleratoren '+it.n+' — hva inngår, hva er leveransen og hvordan selger jeg den inn?\')"><div class="qq">«'+it.q+'»</div><div class="qn"><span class="qarrow">→ </span>'+it.n+'</div><div class="qout">'+it.out+'</div><div class="qmeta"><span class="qdur">'+it.dur+'</span>'+sb+'</div></div>';});h+='<div class="catsec"><div class="cath"><span class="cdot" style="background:'+g.c+'"></span>'+g.cat+'</div><div class="qgrid">'+cards+'</div></div>';});document.getElementById('ab').innerHTML=h;}
 function sT(n,b){document.querySelectorAll('.pnl').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});document.getElementById('t'+n).classList.add('on');b.classList.add('on');}
 rP(1);rArch();rJ(1);rM();rA();
